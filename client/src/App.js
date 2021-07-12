@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react'
+// import logo from './logo.svg';
+import './App.css'
+import useUser from './hooks/useUser'
+import useScreenRouter, { SCREENS } from './hooks/useScreenRouter'
+
+export const UserContext = React.createContext()
+export const ScreenContext = React.createContext()
 
 function App() {
+  const [currentUser, userActionDispatch] = useUser()
+
+  const [CurrentScreen, setCurrentScreen] = useScreenRouter()
+
+  useEffect(() => {
+    if (currentUser === null) {
+      setCurrentScreen(SCREENS.SIGNIN)
+    } else {
+      setCurrentScreen(SCREENS.PROFILE)
+    }
+  }, [currentUser, setCurrentScreen])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <UserContext.Provider value={{ currentUser, userActionDispatch }}>
+        <ScreenContext.Provider value={setCurrentScreen}>
+          <CurrentScreen />
+        </ScreenContext.Provider>
+      </UserContext.Provider>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
