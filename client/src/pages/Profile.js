@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import SideBar from '../components/SideBar'
+import FriendWidget from '../components/FriendWidget'
 
 import { UserContext } from '../App'
 
@@ -24,7 +25,7 @@ function Profile() {
       setFriendList(await requestFriends(currentUser.friends))
     }
     loadFriends()
-  }, [])
+  }, [currentUser.friends])
 
   return (
     <div>
@@ -33,7 +34,8 @@ function Profile() {
       <h3>Friends</h3>
       <ul>
         {friendList.map((friend) => {
-          return <li key={friend.username}>{friend.displayName}</li>
+          // return <li key={friend.username}>{friend.displayName}</li>
+          return <FriendWidget key={friend.username} friendData={friend} />
         })}
       </ul>
       <SideBar />

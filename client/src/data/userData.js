@@ -26,6 +26,13 @@ const userData = [
     displayName: 'Anna',
     friends: ['eddie_mcc', 'elle_nel', 'emily_mcc'],
     posts: []
+  },
+  {
+    username: 'logan_hus',
+    password: '0125',
+    displayName: 'Logan',
+    friends: ['eddie_mcc', 'elle_nel', 'emily_mcc'],
+    posts: []
   }
 ]
 

@@ -2,6 +2,8 @@ import { useReducer } from 'react'
 
 import userData from '../data/userData'
 
+import axios from 'axios'
+
 export const USER_ACTIONS = {
   SIGN_IN: 'sign in',
   SIGN_OUT: 'sign out',
@@ -26,11 +28,14 @@ function reducer(state, action) {
 
       case REMOVE_FRIEND:
         const indexOfFriend = state.friends.indexOf(friendId)
-        updatedUser = {
-          ...state,
-          friends: state.friends.splice(indexOfFriend, 1)
-        }
+        // console.log(state.friends)
+        let updatedUser = { ...state }
+
+        updatedUser.friends.splice(indexOfFriend, 1)
+
         console.log(`Removed friend ${friendId}. Current user: ${updatedUser}`)
+        // console.log(updatedUser)
+        axios.put('/user', updatedUser)
         return updatedUser
 
       case SIGN_OUT:
